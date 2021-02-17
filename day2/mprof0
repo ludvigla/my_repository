@@ -1,0 +1,33 @@
+Timer unit: 1e-06 s
+
+Total time: 0.453911 s
+File: /Users/ludviglarsson/courses/uu-python-course/exercises/uu-exercise-Ludvig/day2/matmult_optimized.py
+Function: matmult at line 5
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     5                                           def matmult():
+     6         1          1.0      1.0      0.0      N = 250
+     7                                           
+     8                                               # NxN matrix
+     9         1         10.0     10.0      0.0      np.random.seed(0)
+    10         1        502.0    502.0      0.1      X = np.random.randint(0,100, size=(N, N))
+    11                                           
+    12                                               # Nx(N+1) matrix
+    13         1          5.0      5.0      0.0      np.random.seed(0)
+    14         1        494.0    494.0      0.1      Y = np.random.randint(0,100, size=(N, N + 1))
+    15                                           
+    16                                               # Nx(N+1)
+    17         1         19.0     19.0      0.0      result = np.zeros(shape=(N, N+1), dtype="int64")
+    18                                           
+    19                                               # iterate through rows of X
+    20       251         88.0      0.4      0.0      for i in range(X.shape[0]):
+    21                                                   # iterate through columns of Y
+    22     63000      25423.0      0.4      5.6          for j in range(Y.shape[1]):
+    23     62750     184584.0      2.9     40.7              a = X[i, :]*Y[:, j]
+    24     62750     242785.0      3.9     53.5              result[i, j] = a.sum()
+    25                                                       
+    26                                               #for r in result:
+    27                                               #print(r)
+    28                                               
+    29         1          0.0      0.0      0.0      return result
