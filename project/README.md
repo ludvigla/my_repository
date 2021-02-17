@@ -1,0 +1,4 @@
+# Project description for UU python course
+
+In RNA sequencing experiments on single cells, RNA molecules are caputured from the cells and processed into complementary DNA or cDNA. These cDNA molecules are then amplified exponentially amplified by a reaction called PCR to generate sufficient concentrations to make the molecules detectable and readable with sequencing instruments.
+The data generated from such experiments therefore contain a high fraction of duplicated RNA sequences and have to be demultiplexed to achieve accurate quantification. To do this, a so called Unique Molecular Identifier (UMI) is coupled to each RNA molecule, making it possible to trace identical PCR copies to one single RNA molecule. In this project, I will present a small simulation framework to benchmark different duplicate removal algorithms and evaluate their performance.
