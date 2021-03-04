@@ -1,0 +1,55 @@
+Timer unit: 1e-06 s
+
+Total time: 0.279108 s
+File: /Users/ludviglarsson/courses/uu-python-course/exercises/uu-exercise-Ludvig/project/UMIsimulator/ampcycle/sim.py
+Function: addSequencingErrors at line 297
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   297                                               def addSequencingErrors(self, seq_error_rate=0.01):
+   298                                                   """
+   299                                           
+   300                                                   Add sequencing errors to UMI pool
+   301                                                   
+   302                                                   Adds sequencing errors to the UMI pool as defined by the 
+   303                                                   `seq_error_rate` parameter. 
+   304                                           
+   305                                                   Parameters
+   306                                                   ----------
+   307                                                   seq_error_rate : float
+   308                                                       sequencing error rate
+   309                                           
+   310                                                   Returns
+   311                                                   ----------
+   312                                                   Pool
+   313                                                       an object of class 'Pool' with mutated UMIs
+   314                                           
+   315                                                   Examples
+   316                                                   ----------
+   317                                                   >>> pool = UMIsimulator.ampcycle.Pool()
+   318                                                   >>> pool.createUMIsWithBias(10, 0.2, 0.8)
+   319                                                   >>> pool.PCRcyclesWithErrorsAndBias(10)
+   320                                                   >>> pool.addSequencingErrors()
+   321                                                   >>> pool.show()
+   322                                                   An object of class 'Pool' with a total of __ amplified UMIs (__ unique)
+   323                                           
+   324                                                   """
+   325                                           
+   326         1          5.0      5.0      0.0          assert self.umis != None, "The UMI pool object has not been initiated"
+   327         1          1.0      1.0      0.0          assert self.umis_amplified != None, "There are no amplified UMIs present in the pool"
+   328                                           
+   329         2          3.0      1.5      0.0          errors_dict = {"A": ["C", "G", "T"],
+   330         1          1.0      1.0      0.0                         "C": ["A", "G", "T"],
+   331         1          1.0      1.0      0.0                         "G": ["C", "A", "T"],
+   332         1          1.0      1.0      0.0                         "T": ["C", "G", "A"]}
+   333         1          0.0      0.0      0.0          umi_list_mutated = []
+   334         5          5.0      1.0      0.0          for umi in self.umis_amplified.keys():
+   335         4        138.0     34.5      0.0              umi_list = [umi] * self.umis_amplified[umi]
+   336     59693      32078.0      0.5     11.5              for umi in umi_list:
+   337     59689      61857.0      1.0     22.2                  umisplit = [L for L in umi]
+   338     59689     104855.0      1.8     37.6                  mutated = [np.random.choice(errors_dict[L]) if np.random.random() < seq_error_rate else L for L in umisplit]
+   339     59689      39535.0      0.7     14.2                  umi_mutated = "".join(mutated)
+   340     59689      38493.0      0.6     13.8                  umi_list_mutated += umi_mutated
+   341         1       2134.0   2134.0      0.8          self.umis_amplified = Counter(umi_list_mutated)
+   342                                           
+   343         1          1.0      1.0      0.0          return self
